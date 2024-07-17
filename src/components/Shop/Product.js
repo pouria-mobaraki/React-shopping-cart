@@ -1,17 +1,22 @@
 import React, { Component } from 'react'
 
 export default class Product extends Component {
-    
+   
+    clickHandler(produnctId){
+     this.props.onAddProduct(produnctId)
+    }
+
     render() {
+        let {id,title,price,img}=this.props
         return (
             <div class="shop-item">
-                <span class="shop-item-title">Shirt</span>
-                <img class="shop-item-image" src='Images/shirt3.png' />
+                <span class="shop-item-title">{title}</span>
+                <img class="shop-item-image" src={img} />
                 <div class="shop-item-details">
-                    <span class="shop-item-price">$129</span>
+                    <span class="shop-item-price">${price}</span>
                     <button
                         class="btn btn-primary shop-item-button"
-                        type="button">
+                        type="button" onClick={this.clickHandler.bind(this,id)}>
                         ADD TO CART
                     </button>
                 </div>

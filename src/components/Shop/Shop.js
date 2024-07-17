@@ -15,7 +15,7 @@ export default class Shop extends Component {
                 { id: 3, title: 'Album 3', price: 20, img: 'Images/Album 3.png' },
                 { id: 4, title: 'Album 4', price: 100, img: 'Images/Album 4.png' },
                 { id: 5, title: 'Coffee', price: 5, img: 'Images/Cofee.png' },
-                { id: 6, title: 'Shirt', price: 50, img: 'Images/Shirt.png' },
+                { id: 6, title: 'Shirt', price: 50, img: 'Images/shirt3.png' },
             ],
 
             shoppingCart: [],
@@ -25,10 +25,21 @@ export default class Shop extends Component {
                 { id: 3, href: 'https://www.facebook.com', img: 'Images/YouTube Logo.png' },
             ],
         }
-
+   this.addProductToCart = this.addProductToCart.bind(this)
 
     }
 
+    addProductToCart(productId){
+     console.log(productId);
+     let mainProduct = this.state.products.find(product => {
+        return productId === product.id
+     })
+     console.log(mainProduct);
+     this.setState(prevState=>{
+        return { shoppingCart:[...prevState.shoppingCart,mainProduct]}
+     })
+
+    }
 
     render() {
         return (
@@ -47,7 +58,7 @@ export default class Shop extends Component {
                     <div className="shop-items">
                     
                    {this.state.products.map(product =>(
-                         <Product />
+                         <Product {...product} onAddProduct={this.addProductToCart}/>
                    ))}
                    
                     </div>
@@ -60,8 +71,10 @@ export default class Shop extends Component {
                         <span class="cart-quantity cart-header cart-column">Doing</span>
                     </div>
                     <div class="cart-items">
-
-                        <CartProduct />
+                          {this.state.shoppingCart.map(product=>(
+                              <CartProduct {...product}/>
+                          ))}
+                       
 
 
                     </div>
